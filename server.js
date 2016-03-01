@@ -45,6 +45,18 @@ app.post('/todos', function (req, res) {
     res.json(body);
 });
 
+// delete is the http method and the  route is /todos/:id
+app.delete('/todos/:id', function (req, res) {
+    var todoID = parseInt(req.params.id, 10);
+    var matchedTodo = _.findWhere(todos, {id: todoID});
+    if (matchedTodo) {
+        todos = _.without(todos, matchedTodo);
+        res.json(matchedTodo);
+    } else {
+        res.status(404).json({"Error": "No matching todo found"});
+    }
+});
+
 
 app.listen(PORT, function () {
     console.log('Express Server listening on port ' + PORT + '!');
