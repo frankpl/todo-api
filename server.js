@@ -15,8 +15,19 @@ app.get('/', function (req, res) {
 
 // GET /todos
 app.get('/todos', function (req, res) {
-    res.json(todos);
+    var queryParams = req.query;
+    var filteredTodos = todos;
+
+    if (queryParams.hasOwnProperty('completed') && queryParams.completed === 'true') {
+        filteredTodos = _.where(filteredTodos, {completed: true});
+    } else if (queryParams.hasOwnProperty('completed') && queryParams.completed === 'false') {
+        filteredTodos = _.where(filteredTodos, {completed: false});
+    } else if (!_.isEmpty(queryParams)) {
+        return res.status(404).json({"Error": "Invalid parameter specified"});
+    }
+    res.json(filteredTodos);
 });
+
 // GET /todos/:id
 app.get('/todos/:id', function(req, res) {
     var todoID = parseInt(req.params.id, 10);
