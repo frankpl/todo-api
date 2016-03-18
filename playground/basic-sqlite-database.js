@@ -33,3 +33,4 @@ sequelize.sync().then(function () {
     }).catch(function(e) {
         console.log(e);
     });
+
