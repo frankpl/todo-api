@@ -1,0 +1,11 @@
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[user]
+	name = frankpl
+	email = frankpl@outlook.com
+[push]
+	default = matching
+[alias]
+	co = checkout
