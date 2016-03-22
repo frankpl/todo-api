@@ -67,13 +67,16 @@ app.post('/todos', function (req, res) {
 // delete is the http method and the  route is /todos/:id
 app.delete('/todos/:id', function (req, res) {
     var todoID = parseInt(req.params.id, 10);
-    var matchedTodo = _.findWhere(todos, {id: todoID});
-    if (matchedTodo) {
-        todos = _.without(todos, matchedTodo);
-        res.json(matchedTodo);
-    } else {
-        res.status(404).json({"Error": "No matching todo found"});
-    }
+    var where = { id: todoID };
+    db.todo.destroy({where: where}).then(function(todo) {
+        if (todo > 0) {
+            res.status(204).send();
+        } else {
+            res.status(404).json("No record found with that ID");
+        }
+    }, function(e) {
+        res.status(500).json(e);
+    });
 });
 
 // PUT method to update todos by id
