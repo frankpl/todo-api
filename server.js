@@ -108,6 +108,17 @@ app.put('/todos/:id', function(req, res) {
     });
 });
 
+// POST for user model
+app.post('/users', function(req, res) {
+    var body = _.pick(req.body, 'email', 'password');
+
+    db.user.create(body).then(function(user) {
+        res.json(user.toJSON());
+    }).catch(function(e) {
+        return res.status(400).json(e);
+    });
+});
+
 db.sequelize.sync().then(function() {
     app.listen(PORT, function () {
     console.log('Express Server listening on port ' + PORT + '!');
