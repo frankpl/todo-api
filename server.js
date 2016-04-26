@@ -120,7 +120,7 @@ app.post('/users', function(req, res) {
     });
 });
 
-// POST login users
+// POST login users. I have no idea what happened
 
 app.post('/users/login', function(req, res) {
     var body = _.pick(req.body, 'email', 'password');
