@@ -70,7 +70,7 @@ module.exports = function(sequelize, DataTypes) {
                         var decodedJWT = jwt.verify(token, 'qwerty098');
                         var bytes = cryptojs.AES.decrypt(decodedJWT.token, 'abc123!@#');
                         var tokenData = JSON.parse(bytes.toString(cryptojs.enc.Utf8));
-
+                        console.log("Here is the tokenData, decrypted: " + tokenData);
                         user.findById(tokenData.id).then(function (user) {
                             console.log("Did we get the user? " + user);
                             if (user) {
