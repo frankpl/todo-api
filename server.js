@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
     res.send('To-Do API Root');
 });
 
-// GET /todos
+// GET All /todos
 app.get('/todos', middleware.requireAuthentication, function (req, res) {
     var query = req.query;
     var userId = req.user.get('id');
