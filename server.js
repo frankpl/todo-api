@@ -130,7 +130,7 @@ app.put('/todos/:id', middleware.requireAuthentication, function(req, res) {
 // POST for user model
 app.post('/users', function(req, res) {
     var body = _.pick(req.body, 'email', 'password');
-
+    debugger;
     db.user.create(body).then(function(user) {
         res.json(user.toPublicJSON());
     }).catch(function(e) {
